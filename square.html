@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Square Workout</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        h1 {
+            color: #00796b;
+            margin-bottom: 20px;
+        }
+        .container {
+            text-align: center;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s;
+        }
+        .container:hover {
+            transform: scale(1.02);
+        }
+        button {
+            background-color: #00796b;
+            color: white;
+            margin-left: 40px;
+            margin-top: 12px;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #004d40;
+        }
+        #userAnswer {
+            padding: 12px;
+            font-size: 18px;
+            margin-top: 15px;
+            border: 2px solid #00796b;
+            border-radius: 5px;
+            width: calc(100% - 24px);
+        }
+        #output {
+            margin-top: 20px;
+            font-size: 20px;
+            color: #d32f2f;
+        }
+        #output.correct {
+            color: green; /* Color for correct answer */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 onclick="window.location.href='index.html'">Square Workout</h1>
+        <div id="question" style="border: 2px solid #00796b; padding: 10px; border-radius: 5px; font-size: 24px; font-weight: bold;"></div>
+        <input type="text" id="userAnswer" placeholder="Type your answer here" readonly />
+        <div id="numberPad" style="display: flex; flex-direction: column; width: 320px; margin: 0 auto;">
+            <div style="display: flex;">
+                <button onclick="appendNumber(1)">1</button>
+                <button onclick="appendNumber(2)">2</button>
+                <button onclick="appendNumber(3)">3</button>
+            </div>
+            <div style="display: flex;">
+                <button onclick="appendNumber(4)">4</button>
+                <button onclick="appendNumber(5)">5</button>
+                <button onclick="appendNumber(6)">6</button>
+            </div>
+            <div style="display: flex;">
+                <button onclick="appendNumber(7)">7</button>
+                <button onclick="appendNumber(8)">8</button>
+                <button onclick="appendNumber(9)">9</button>
+            </div>
+            <div style="display: flex;">
+                <button onclick="clearInput()" style="font-size: 11px; padding: 5px 25px;">C</button>
+                <button onclick="appendNumber(0)">0</button>
+                <button onclick="checkAnswer()" style="font-size: 11px; padding: 5px 12px;">Submit</button>
+            </div>
+        </div>
+        <div id="output"></div>
+    </div>
+    <script>
+        let currentQuestion = {};
+        
+        function generateQuestion() {
+            let number;
+            do {
+                number = Math.floor(Math.random() * 38) + 12; // 12 to 49
+            } while (number === 20 || number === 30 || number === 40); // Avoid 20, 30, and 40
+            currentQuestion = {
+                question: `${number}² = ?`,
+                answer: number * number
+            };
+            document.getElementById('question').innerText = currentQuestion.question;
+            document.getElementById('userAnswer').value = ''; // Clear previous answer
+        }
+
+        function checkAnswer() {
+            const userAnswer = parseInt(document.getElementById('userAnswer').value);
+            const correctAnswer = currentQuestion.answer;
+
+            if (userAnswer === correctAnswer) {
+                document.getElementById('output').innerText = `Correct! ${currentQuestion.question.replace('?', `${correctAnswer}`)}.`;
+                document.getElementById('output').classList.add('correct'); // Add class for correct answer
+            } else {
+                document.getElementById('output').innerText = `Wrong! ${currentQuestion.question.replace('?', `${correctAnswer}`)}.`;
+                document.getElementById('output').classList.remove('correct'); // Add class for correct answer
+            }
+            generateQuestion(); // Generate new question immediately
+        }
+
+        function appendNumber(num) {
+            const userAnswerInput = document.getElementById('userAnswer');
+            userAnswerInput.value += num; // Append the pressed number to the input
+        }
+
+        function clearInput() {
+            document.getElementById('userAnswer').value = ''; // Clear the input field
+        }
+
+        // Generate the first question when the page loads
+        window.onload = generateQuestion;
+    </script>
+</body>
+</html>
