@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <title>Tables</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+            background-color: #e0f7fa; /* Changed background color */
+        }
+        .number-list {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .number-list button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #00796b; /* Changed button background color */
+            color: white; /* Changed button text color */
+        }
+        .number-list button:hover {
+            background-color: #004d40; /* Changed button hover background color */
+        }
+        .table-display {
+            margin-top: 30px;
+            font-size: 18px;
+            color: #004d40; /* Changed table display text color */
+        }
+    </style>
+</head>
+<body>
+    <h1 onclick="window.location.href='../index.html'">Maths Workout</h1>
+    <div class="table-display" id="tableDisplay"></div>
+    <div class="number-list">
+        <!-- 12 से 29 तक के बटन -->
+        <button onclick="showTable(12)">12</button>
+        <button onclick="showTable(13)">13</button>
+        <button onclick="showTable(14)">14</button>
+        <button onclick="showTable(15)">15</button>
+        <button onclick="showTable(16)">16</button>
+        <button onclick="showTable(17)">17</button>
+        <button onclick="showTable(18)">18</button>
+        <button onclick="showTable(19)">19</button>
+        <button onclick="showTable(21)">21</button>
+        <button onclick="showTable(22)">22</button>
+        <button onclick="showTable(23)">23</button>
+        <button onclick="showTable(24)">24</button>
+        <button onclick="showTable(25)">25</button>
+        <button onclick="showTable(26)">26</button>
+        <button onclick="showTable(27)">27</button>
+        <button onclick="showTable(28)">28</button>
+        <button onclick="showTable(29)">29</button>
+        <button onclick="showTable(31)">31</button>
+    </div>
+    
+
+    <script>
+        function showTable(number) {
+            let tableContent = `<h2>${number} Table</h2>`;
+            for (let i = 1; i <= 10; i++) {
+                tableContent += `<p>${number} × ${i} = ${number * i}</p>`;
+            }
+            document.getElementById('tableDisplay').innerHTML = tableContent;
+        }
+    </script>
+</body>
+</html>
